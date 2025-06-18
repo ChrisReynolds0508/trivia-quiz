@@ -1,8 +1,14 @@
 import elements from "./ui.js";
 import { sampleQuestions } from "./samplequestions.js"
 
+let currentQuestionIndex = 0;
+const userAnswers = [];
+let timerInterval; 
+let timeRemaining = 30;
 
 function showQuestion(index){
+    clearInterval(timerInterval);//stops any existing timer 
+
     const currentQuestion = sampleQuestions[index];
 
     elements.questionDiv.innerHTML = ''; //clears previous question
@@ -26,17 +32,55 @@ function showQuestion(index){
     elements.questionDiv.appendChild(label);
 
    });
-
-
+   startTimer();
 }
+
+function startTimer(){
+    timeRemaining = 30;
+    elements.timer.textContent = `Time Left: ${timeRemaining}`;
+    
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        elements.timer.textContent = `Time left: ${timeRemaining}`; 
+
+        if(timeRemaining <= 0){
+            clearInterval(timerInterval);
+            handleTimeout();
+        }
+    }, 1000); 
+}
+
+function handleTimeout(){
+    userAnswers[currentQuestionIndex] = null;
+    currentQuestionIndex++;
+
+    if(currentQuestionIndex < sampleQuestions.length){
+        showQuestion(currentQuestionIndex);
+    }else{
+        endQuiz();
+    }
+}
+
+function endQuiz() {
+    clearInterval(timerInterval);
+    let scoreCount = 0;
+
+    userAnswers.forEach((answerIndex, questionIndex) => {
+        if(answerIndex === sampleQuestions[questionIndex].answerIndex){
+            scoreCount++;
+        }
+    });
+    elements.questionDiv.innerHTML = `<p>Quiz Completed! You scored: ${scoreCount} out of ${sampleQuestions.length}. </p>`;
+    elements.score.textContent = `Your score: ${scoreCount} / ${sampleQuestions.length}`
+}
+
 elements.beginButton.addEventListener('click', () => {
     currentQuestionIndex = 0; 
     userAnswers.length = 0;
+    elements.score.textContent = ''
     showQuestion(currentQuestionIndex);
 });
 
-let currentQuestionIndex = 0;
-const userAnswers = [];
 
 elements.nextButton.addEventListener('click', () => {
     const selectedOption = document.querySelector('input[name="quizOption"]:checked'); //get the selected radio button 
@@ -47,22 +91,16 @@ elements.nextButton.addEventListener('click', () => {
     }
 
     userAnswers[currentQuestionIndex] = parseInt(selectedOption.value); // save the answer's index 
+    clearInterval(timerInterval);
 
     currentQuestionIndex++; //move to next question
 
     if(currentQuestionIndex < sampleQuestions.length){
         showQuestion(currentQuestionIndex);
     }else{
-        let scoreCount = 0;
-        userAnswers.forEach((answerIndex, questionIndex) => {
-            if(answerIndex === sampleQuestions[questionIndex].answerIndex){
-                scoreCount++;
-            }
-        });
-        elements.questionDiv.innerHTML = `<p>Quiz Completed! You scored: ${sampleQuestions.length}.</p>`;
-        elements.score.textContent = `Your score; ${scoreCount}/ ${sampleQuestions.length}`  
+        endQuiz();  
     }
 });
 
 
-export default 'beginbutton.js';
+export default 'clickevents.js';
