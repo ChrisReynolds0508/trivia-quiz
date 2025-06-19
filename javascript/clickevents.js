@@ -1,8 +1,8 @@
 import elements from "./ui.js";
 import { sampleQuestions } from "./samplequestions.js"
 
-let currentQuestionIndex = 0;
-const userAnswers = [];
+let currentQuestionIndex = 0;//tracks what question index the user is on 
+const userAnswers = []; 
 let timerInterval; 
 let timeRemaining = 30;
 
@@ -25,6 +25,10 @@ function showQuestion(index){
     radio.type = 'radio';
     radio.name = 'quizOption';
     radio.value = i;
+
+    if(userAnswers[index] === i){
+        radio.checked = true;
+    }
 
     label.appendChild(radio);
     label.appendChild(document.createTextNode(option));
@@ -101,6 +105,14 @@ elements.nextButton.addEventListener('click', () => {
         endQuiz();  
     }
 });
+
+elements.previousQuestion.addEventListener('click', () => {
+    if(currentQuestionIndex > 0){
+        currentQuestionIndex--;
+        showQuestion(currentQuestionIndex)
+    }
+    
+})
 
 
 export default 'clickevents.js';

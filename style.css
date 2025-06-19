@@ -1,56 +1,74 @@
-/* Container and layout */
+/* Base styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Center the app on the page */
 .container {
   max-width: 600px;
-  margin: 40px auto;
+  margin: 0 auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Heading */
 .heading {
   text-align: center;
-  font-size: 2.2rem;
-  color: #333;
   margin-bottom: 20px;
 }
 
-/* Questions area */
-.questions {
-  margin-bottom: 20px;
-}
-
-.questions p {
+/* Timer */
+.timer {
+  text-align: center;
   font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 12px;
+  color: #d9534f;
+  margin-bottom: 20px;
 }
 
-/* Answer options */
-.questions label {
-  display: block;
+/* Question */
+.questions p {
+  font-size: 1.1rem;
+  font-weight: bold;
   margin-bottom: 10px;
+}
+
+/* Options */
+.questions label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
   cursor: pointer;
-  font-size: 1rem;
-  color: #555;
 }
 
 .questions input[type="radio"] {
-  margin-right: 10px;
-  cursor: pointer;
+  transform: scale(1.2);
+  margin: 0;
+}
+
+/* Score */
+.score {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
 }
 
 /* Buttons */
 button {
-  padding: 10px 16px;
-  margin: 5px;
+  display: block;
+  width: 200px;
+  margin: 10px auto;
+  padding: 10px;
   font-size: 1rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 
 .beginButton {
@@ -58,55 +76,25 @@ button {
   color: white;
 }
 
-.beginButton:hover {
-  background-color: #0056b3;
-}
-
 .nextButton {
   background-color: #28a745;
   color: white;
+}
+
+.previousQuestion {
+  background-color: #ffc107;
+  color: black;
+}
+
+/* Button hover effects */
+.beginButton:hover {
+  background-color: #0056b3;
 }
 
 .nextButton:hover {
   background-color: #1e7e34;
 }
 
-.previousQuestion {
-  background-color: #ffc107;
-  color: #212529;
-}
-
 .previousQuestion:hover {
-  background-color: #d39e00;
-}
-
-/* Score display */
-.score {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 15px;
-  text-align: center;
-  color: #444;
-}
-
-/* Timer */
-.timer {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #d9534f;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* Responsive */
-@media (max-width: 650px) {
-  .container {
-    margin: 20px 10px;
-    padding: 15px;
-  }
-
-  button {
-    width: 100%;
-    margin: 8px 0;
-  }
+  background-color: #e0a800;
 }
