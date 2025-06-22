@@ -2,12 +2,18 @@ import elements from "./ui.js";
 import { sampleQuestions } from "./samplequestions.js"
 
 let currentQuestionIndex = 0;//tracks what question index the user is on 
-const userAnswers = []; 
-let timerInterval; 
-let timeRemaining = 30;
+const userAnswers = []; // stores users answers 
+let timerInterval; // initialises a timer variable
+let timeRemaining = 30; //sets the timer to 30 seconds
 
-function showQuestion(index){
+function showQuestion(index){ //index of the question in sample questions array
     clearInterval(timerInterval);//stops any existing timer 
+
+    if(index > 0){
+        elements.previousQuestion.style.display = 'block';
+    } else {
+        elements.previousQuestion.style.display ='none'; 
+    }
 
     const currentQuestion = sampleQuestions[index];
 
@@ -67,6 +73,8 @@ function handleTimeout(){
 
 function endQuiz() {
     clearInterval(timerInterval);
+    elements.timer.style.display = "none";
+
     let scoreCount = 0;
 
     userAnswers.forEach((answerIndex, questionIndex) => {
