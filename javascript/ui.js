@@ -29,6 +29,7 @@ container.appendChild(nextButton);
 const previousQuestion = document.createElement('button'); 
 previousQuestion.classList.add('previousQuestion');
 previousQuestion.textContent = 'Previous Question';
+previousQuestion.style.display = 'none';
 container.appendChild(previousQuestion);
 
 const timer = document.createElement('div'); 
